@@ -54,7 +54,45 @@ pnpm dev
 ## WSL2での使用について
 
 Windows (WSL2) 環境でホストする場合、スマホからアクセスするにはネットワーク設定が必要です。
-詳細は [WSL_SETUP.md](./WSL_SETUP.md) を参照してください。
+
+### 設定手順
+
+1. **Windowsホームディレクトリに `.wslconfig` ファイルを作成**
+   - パス: `C:\Users\<ユーザー名>\.wslconfig`
+   - ファイルが存在しない場合は新規作成
+
+2. **以下の内容を記述**
+   ```ini
+   [wsl2]
+   networkingMode=mirrored
+   ```
+
+3. **WSLを再起動**
+   ```powershell
+   # PowerShellを管理者権限で実行
+   wsl --shutdown
+   wsl
+   ```
+
+4. **WindowsホストのIPアドレスを確認（必要に応じて）**
+   ```powershell
+   ipconfig
+   ```
+   - `イーサネット アダプター` または `Wi-Fi アダプター` の `IPv4 アドレス` を確認
+   - サーバー起動時に表示されるIPアドレスがWindowsホストのIPアドレスになります
+
+5. **ファイアウォールでポートを開放（必要に応じて）**
+   ```powershell
+   # PowerShellを管理者権限で実行
+   New-NetFirewallRule -DisplayName "WSL Game Server" -Direction Inbound -LocalPort 5173,3000 -Protocol TCP -Action Allow
+   ```
+
+これで、スマホからWindowsホストのIPアドレスでアクセスできるようになります。
+
+### トラブルシューティング
+
+- **接続できない場合**: 同じWi-Fiネットワークに接続されているか確認してください
+- **ファイアウォールでブロックされる場合**: 上記の手順5でポートを開放してください
 
 ## ライセンス
 
