@@ -1,0 +1,12 @@
+{
+  "name": "local-ox-game-root",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel --if-present run dev",
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
